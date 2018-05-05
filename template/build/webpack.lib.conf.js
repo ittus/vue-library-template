@@ -6,6 +6,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 var env = {{#if_or unit e2e}}process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -30,6 +31,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     libraryTarget: 'umd'
   },
   plugins: [
+    new PeerDepsExternalsPlugin(),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
